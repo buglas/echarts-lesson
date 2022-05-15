@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>地球</title>
+    <style>
+        html{height: 100%}
+        body{height: 100%;margin: 0}
+        #main{height: 100%}
+    </style>
+</head>
+
+
+<body>
+    <div id="main"></div>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+    <script>
+        const chart = echarts.init(document.getElementById('main'));
+
+        const star='./images/star.jpg'
+        const world='./images/world.jpg'
+        const hdr='./images/ambient.hdr'
+
+        const option={
+            globe:{
+                //漫反射贴图
+                baseTexture:world,
+                //凹凸贴图
+                heightTexture:world,
+                //凹凸强调
+                displacementScale:0.02,
+                //环境贴图
+                environment:star,
+                //着色方式
+                shading:'realistic',
+                //后期处理
+                postEffect:{
+                    enable:true
+                },
+                //灯光
+                light:{
+                    //全局光
+                    ambientCubemap:{
+                        //贴图
+                        texture:hdr,
+                        //漫反射亮度
+                        diffuseIntensity:2.5
+                    }
+                }
+            },
+        }
+
+        chart.setOption(option)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据集</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+
+    //数据源
+    const source=[
+        ['html',  20,   25],
+        ['css',   10,   15],
+        ['js',    30,   40]
+    ];
+
+    //维度映射 dimensions
+    const dimensions=[null,{name:'学习人数'}, '就业人数']
+
+    // 指定图表的配置项和数据
+    const option = {
+        legend: {},
+        tooltip: {},
+        dataset: {source,dimensions},
+        xAxis: {type: 'category'},
+        yAxis: {},
+        series: [
+            {
+                // name:'上课人数',
+                type: 'bar',
+            },
+            {
+                type: 'bar',
+            },
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中国地图</title>
+    <style>
+        #main{
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    //初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+
+    /*获取接送文件*/
+    fetch('./data/China.json')
+        .then((res) => res.json())
+        .then(data => {
+            //echarts 注册地图 registerMap
+            echarts.registerMap('china',data)
+            //echarts 配置文件
+            const option = {
+                title: {
+                    text: '中国地图',
+                    left:'center'
+                },
+                /*
+                * 地图 map
+                *   type 图表类型
+                *   map 地图注册名
+                * */
+                series:{
+                    type:'map',
+                    map:'china',
+                    // roam:'scale',
+                    // roam:'move',
+                    roam:true,
+                    center: [115.97, 29.71],
+                    zoom:1,
+                    itemStyle:{
+                        areaColor:'#00acec',
+                        borderColor:'blue'
+                    },
+                    emphasis:{
+                        itemStyle:{
+                            areaColor:'rgba(0,163,236,0.5)',
+                            borderColor:'#00acec'
+                        },
+                        label:{
+                            color:'blue'
+                        }
+                    }
+                }
+            };
+            //基于配置文件显示图表
+            myChart.setOption(option);
+        })
+
+</script>
+</body>
+</html>

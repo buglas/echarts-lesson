@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>异步数据</title>
+    <style>
+        #main{
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    const myChart = echarts.init(document.getElementById('main'));
+    fetch('./data/China.json')
+        .then((res) => res.json())
+        .then(data => {
+            /*注册地图*/
+            echarts.registerMap('china', data);
+            /*配置项*/
+            const option = {
+                title: {
+                    text: '中国地图',
+                    left:'center'
+                },
+                series: {
+                    type: 'map',
+                    map: 'china'
+                }
+            };
+            /*基于配置项显示图表*/
+            myChart.setOption(option);
+        })
+
+</script>
+</body>
+</html>

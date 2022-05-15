@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主题样式</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script src="./js/vintage.js"></script>
+<script>
+    const dom= document.getElementById('main');
+
+    /*请求样式文件
+    *   echarts.registerTheme() 基于json数据注册主题
+    * */
+    fetch('./lib/wonderland.json')
+        .then((res) => res.json())
+        .then(data => {
+            echarts.registerTheme('wonderland',data)
+            draw()
+        });
+
+    function draw(){
+        const myChart = echarts.init(dom,'wonderland');
+        const option = {
+            series: [
+                {
+                    type:'pie',
+                    data:[
+                        {value:20,name:'html'},
+                        {value:10,name:'css'},
+                        {value:30,name:'js'},
+                        {value:40,name:'vue'},
+                    ],
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+    }
+
+
+
+</script>
+</body>
+</html>

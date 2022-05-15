@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编码映射</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    //维度映射
+    const dimensions=['大前端','学习人数', '就业人数'];
+    //数据源
+    const source =[
+        ['html',  20,   25],
+        ['css',   10,   15],
+        ['js',    30,   40],
+    ];
+
+    // 指定图表的配置项和数据
+    const option = {
+        legend:{},
+        tooltip:{},
+        dataset: {dimensions,source},
+        /*设置类目轴和数值轴*/
+        xAxis:{type:'category'},
+        yAxis:{type:'value'},
+        /*encode 编码映射
+        *   x x轴维度
+        *   y y轴维度
+        *   seriesName 系列名，n|[n]|[n,m,...]
+        *   tooltip 提示信息，n|[n]|[n,m,...]
+        * */
+        series:{
+            type:'bar',
+            encode:{
+                // x:0,
+                x:'大前端',
+                // y:2,
+                y:'就业人数',
+                // seriesName:2,
+                tooltip:[1,2]
+            }
+        }
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

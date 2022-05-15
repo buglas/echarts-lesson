@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>西虹市 新增确诊/治愈 趋势</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    /*基于准备好的dom，初始化echarts实例*/
+    const myChart = echarts.init(document.getElementById('main'));
+    /*数据*/
+    //日期
+    const xData=['3.3', '3.4', '3.5', '3.6', '3.7', '3.8', '3.9'];
+    //确诊数据
+    const qzData=[200, 170, 90, 80, 30, 40, 10];
+    //治愈数据
+    const zyData=[10, 20, 40, 70, 120, 145, 150];
+
+
+    /*指定图表的配置项和数据*/
+    const option = {
+        /*标题 title {}
+        *   主标题 text
+        *   副标题 subtext
+        *   主标题样式 textStyle
+        *       color
+        *       fontSize
+        * */
+        title:{
+            text:'西虹市 新增确诊/治愈 趋势',
+            subtext:'单位：例',
+            textStyle:{
+                fontSize:16
+            }
+        },
+
+
+        /*提示框 tooltip
+        *   trigger 提示框触发方式
+        *       item 图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+        *       axis 坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表
+        *       none 什么都不触发
+        *   backgroundColor 背景色
+        *   textStyle 文字样式
+        *   borderWidth 边界宽度
+        *   borderColor 边界颜色
+        * */
+        tooltip:{
+            trigger:'axis',
+            backgroundColor:'#fff',
+            textStyle:{
+                color:'#333'
+            },
+            borderWidth:1,
+            borderColor:'#ddd'
+        },
+
+        /*x轴
+        *   data 类目轴数据
+        *   boundaryGap 边界留白
+        *   axisLine 轴线
+        *       show 可见性
+        *   axisLabel 标签
+        *       rotate 旋转
+        *       margin 外边距
+        *   axisTick 刻度
+        *       show 可见性
+        * */
+        xAxis:{
+            data:xData,
+            axisTick:{
+                show:false,
+            },
+            boundaryGap:0,
+            axisLine:{
+                show:false
+            },
+            axisLabel:{
+                rotate:50,
+                margin:15
+            }
+        },
+
+
+        /*y轴
+        *   其属性与x 轴类似
+        * */
+        yAxis:{
+            axisLine:{
+                show:false
+            },
+            axisTick:{
+                show:false
+            }
+        },
+
+
+        /*图例 legend
+        *   data[] 图例的数据,每一项代表一个系列的 name
+        *   icon 图表形状
+        *   itemGap 元素间隙
+        *   itemHeight 元素高度
+        *   textStyle 文字样式
+        *       fontSize 大小
+        *       color 颜色
+        *       padding 内间距
+        *   left top right bottom 边界位置
+        * */
+        legend:{
+            icon:'circle',
+            left:'right',
+            top:32,
+            itemHeight:7,
+            textStyle:{
+                padding:[0,0,0,-9],
+                color:'#999'
+            }
+        },
+
+        /*网格 grid
+        *   left top right bottom 边界位置
+        * */
+        grid:{
+            left:50,
+            right:10,
+            top:70
+        },
+
+        /*系列列表 series
+        *   name 系列名,用于提示tooltip，图例legend 筛选，数据更新
+        *   type 列表类型
+        *   lineStyle 线的样式
+        *       color 颜色
+        *   showSymbol 标记点的显示
+        *   smooth 线的圆滑
+        *   data 数据
+        * */
+        series:[
+            {
+                name:'确诊',
+                type:'line',
+                data:qzData,
+                smooth:true,
+                lineStyle:{
+                    color:'crimson'
+                },
+                showSymbol:false
+            },
+            {
+                name:'治愈',
+                type:'line',
+                data:zyData,
+                smooth:true,
+                /*lineStyle:{
+                    color:'lightseagreen'
+                },*/
+                itemStyle:{
+                    color:'lightseagreen'
+                },
+                symbol:'none'
+            },
+        ]
+
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

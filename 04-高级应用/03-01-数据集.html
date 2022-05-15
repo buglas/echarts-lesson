@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据集</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    //基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    //数据源
+    /*const source=[
+        [null,'学习人数','就业人数'],
+        ['html',  30,       40],
+        ['css',   20,       30],
+        ['js',    40,       50]
+    ]*/
+    const source=[
+        {'大前端':'html','学习人数':30,'就业人数':40},
+        {'大前端':'css','学习人数':20,'就业人数':30},
+        {'大前端':'js','学习人数':40,'就业人数':50},
+    ]
+
+    // 指定图表的配置项和数据
+    const option = {
+        legend:{},
+        /*
+        * dataset数据集
+        *   source 数据源 []
+        * */
+        dataset:{source},
+
+        /*x轴
+        *   type 轴的类型
+        *       category 类目轴，离散型数据
+        *       value 数值轴，连续性数据
+        * */
+        xAxis:{
+            type:'category',
+            // data:['html','css','js']
+        },
+        yAxis:{
+            type:'value'
+        },
+
+        /*系列列表*/
+        series:[
+            {
+                // name:'学习人数',
+                type:'bar',
+                // data:[30,20,40]
+            },
+            {
+                type:'bar'
+            },
+        ]
+
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

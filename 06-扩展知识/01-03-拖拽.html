@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 700px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    /*折线图节点尺寸*/
+    const symbolSize = 20;
+    /*点位*/
+    const data = [[0,0], [20, 20], [40,40]];
+
+    /*实例化echarts*/
+    const chart = echarts.init(document.getElementById('main'));
+
+    /*1.线绘制折线图*/
+    const option={
+        /*tooltip 提示
+        *   triggerOn 提示的触发方式
+        *   formatter 格式化提示内容
+        * */
+        tooltip: {
+            triggerOn:'none',
+            formatter:({data})=>{
+                const [x,y]=data
+                return `${Math.round(x)}, ${Math.round(y)}`
+            }
+        },
+        /*x轴
+        *   min,max 刻度区间
+        *   type 坐标轴的类型
+        *       value 数值轴
+        * */
+        xAxis: {
+            min: 0,
+            max: 50,
+        },
+        /*y 轴
+        *   属性同x
+        * */
+        yAxis: {
+            min: 0,
+            max: 50,
+        },
+        /*系列 series
+        *   id 用于在 option 或者 API 中引用组件
+        *   type 类型
+        *   smooth 圆弧
+        *   symbolSize 标记点尺寸
+        *   data 数据
+        * */
+        series: {
+            id:1,
+            type:'line',
+            data,
+            symbolSize,
+            smooth:true
+        },
+    }
+    chart.setOption(option);
+
+    /*2.为标记点添加拖拽功能*/
+    const {curry}=echarts.util
+    const circles=data.map((pos,ind)=>{
+        const [x,y]=chart.convertToPixel('grid',pos)
+        console.log(x,y);
+        return {
+            type:'circle',
+            x,y,
+            shape:{
+                r:symbolSize/2
+            },
+            z:10,
+            draggable:true,
+            invisible:true,
+            ondrag:curry(onPointerDragging,ind),
+            onmouseover:curry(showTooltip,ind),
+            onmousemove:curry(showTooltip,ind),
+            onmouseout:curry(hideTooltip,ind),
+        }
+    })
+    chart.setOption({
+        graphic:circles
+    })
+
+
+    /*鼠标拖拽时，让折线中的点位随拖拽点变化*/
+    function onPointerDragging(ind) {
+        //获取当前原生图形的像素位
+        const {x,y}=this
+        const pos=chart.convertFromPixel('grid',[x,y])
+        console.log(pos);
+
+        //获取当前原生图形的索引位
+        data[ind]=pos
+
+        chart.setOption({
+            series: [
+                {
+                    id:1,
+                    data
+                }
+            ]
+        })
+
+    }
+
+    /*鼠标在标记点上划入|移动时，触发显示提示事件*/
+    function showTooltip(ind){
+        chart.dispatchAction({
+            type:'showTip',
+            seriesIndex:0,
+            dataIndex:ind
+        })
+    }
+
+
+    /*鼠标在标记点上移出时，触发隐藏提示事件*/
+    function hideTooltip(ind){
+        chart.dispatchAction({
+            type:'hideTip',
+            seriesIndex:0,
+            dataIndex:ind
+        })
+    }
+
+</script>
+</body>
+</html>

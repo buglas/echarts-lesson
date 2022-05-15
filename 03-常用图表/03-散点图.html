@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>散点图</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    //数据
+    const labels=['9:42:10','9:42:11','9:42:12','9:42:13',]
+    /*const data=[
+        //x y  z
+        [0, 0, 20],
+        [1,10,40],
+        [2,10,50],
+        [3,30,30],
+    ];*/
+    const data=[
+        //x y  z
+        [new Date(), 0, 20],
+        [new Date(new Date().getTime()+1000*60*60*2),10,40],
+        [new Date(new Date().getTime()+1000*60*60*3),20,50],
+        [new Date(new Date().getTime()+1000*60*60*4),30,30],
+    ];
+    // 指定图表的配置项和数据
+    const option = {
+        /*x 轴*/
+        xAxis:{
+            show:true,
+            type:'time',
+            axisTick:{
+                show:true,
+            },
+            axisLabel:{
+                show:true,
+                // formatter: '{value} kg'
+            }
+        },
+        /*y轴*/
+        yAxis:{},
+        /*散点图 scatter
+        *   data 数据
+        *   symbolSize 散点尺寸
+        * */
+        series:{
+            type:'scatter',
+            data,
+            symbolSize:30,
+            /*symbolSize:(data)=>{
+                // console.log(data);
+                return data[2]
+            },
+            label:{
+                show:true,
+                fontSize:14,
+                fontWeight:'bold',
+                position:'top',
+                distance:15,
+                // formatter:'{c}',
+                formatter:(data)=>{
+                    console.log(data);
+                    return `散点大小：${data.value[2]}`
+                }
+            }*/
+
+        }
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

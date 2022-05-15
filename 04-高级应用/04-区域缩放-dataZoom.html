@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dataZoom</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+
+    //数据源
+    const source = [
+        //x   y   z
+        [2,  1, 5],
+        [4,  2, 10],
+        [6,  3, 15],
+        [8,  4, 20],
+        [10, 5, 25],
+        [12, 6, 30],
+        [14, 7, 35],
+        [16, 8, 40],
+        [18, 9, 45],
+    ];
+
+    // 指定图表的配置项和数据
+    const option = {
+        tooltip: {},
+        /*工具栏 toolbox
+        *   feature{} 工具配置项
+        *     dataZoom{} 框选型缩放缩放
+        * */
+        toolbox:{
+            feature:{
+                dataZoom:{}
+            }
+        },
+
+        /*
+        * x 轴
+        *   min 最小值
+        *       dataMin 取所有数据中的最小值
+        *   max 最大值
+        *       dataMax 取所有数据中的最大值
+        * */
+        xAxis: {
+            type: 'value',
+            min: 'dataMin',
+            max: 'dataMax',
+        },
+        yAxis: {
+            type: 'value',
+            min: 'dataMin',
+            max: 'dataMax',
+        },
+        /*
+        * dataZoom 区域缩放 [{},{}]
+        *   type 缩放方式
+        *       inside 内置缩放，通过鼠标的平移缩放实现
+        *       slider 滑动条缩放
+        *   xAxisIndex 缩放作用于哪个x轴
+        *   yAxisIndex 缩放作用于哪个y轴
+        *   start 起始位，百分百 [0,100]
+        *   end 结束位，百分百 [0,100]
+        * */
+        dataZoom:[
+            {
+                type:'inside',
+                // start:50,
+                // end:60
+            },
+            {
+                type:'slider',
+                xAxisIndex:0
+            },
+            {
+                type:'slider',
+                yAxisIndex:0
+            },
+        ],
+
+        /*数据集*/
+        dataset:{source},
+        /*系列列表*/
+        series: {
+            type: 'scatter',
+            symbolSize: function (param) {
+                return param[2];
+            },
+        },
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>散点图</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 900px;
+            height: 300px;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+<div id="main"></div>
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    const myChart = echarts.init(document.getElementById('main'));
+    const data={
+        x:[ "0:00:00","0:01:00","0:02:00","0:03:00","0:04:00","0:05:00"],
+        y:[ 5,15.29,17.17,26.23,33.28,44.75],
+        ymax:[9.95,26.24,28.12,47.18,54.33,55.7,],
+        ymin:[1.49,5.78,6.66,9.72,7.77,20.24],
+        symbol:[0,0,0,1,0,0,0,0]
+    }
+    data.second=data.x.map(d=>timeToSecond(d))
+    const {x,y,ymax,ymin,symbol,second}=data
+    const source=[x,y,ymax,ymin,symbol,second]
+
+    console.log(source);
+
+    const option = {
+        dataset:{
+            source
+        },
+        color:['#88d8b2','#49b0f5','#e5e984'],
+        grid:{
+            show: true,
+            backgroundColor:'#04191e',
+            borderColor:'#1f4144',
+        },
+        /*x 轴*/
+        xAxis:{
+            min:'dataMin',
+            axisLabel:{
+                color:'#00a188',
+                formatter: d=>secondToTime(d)
+            },
+            splitLine:{
+                lineStyle:{
+                    color:'#1f4144'
+                }
+            },
+            axisLine:{
+                show:false,
+                lineStyle:{
+                    color:'#1f4144'
+                }
+            },
+        },
+        yAxis:{
+            min:'dataMin',
+            axisLabel: {
+                color: '#00a188',
+            },
+            splitLine:{
+                lineStyle:{
+                    color:'#1f4144'
+                }
+            },
+            axisLine:{
+                show:false,
+                lineStyle:{
+                    color:'#1f4144'
+                }
+            }
+        },
+        series:[
+            {
+                type:'line',
+                seriesLayoutBy:'row',
+                encode:{
+                    x:5,
+                    y:1
+                },
+                symbolSize:10,
+                symbol:d=>d[4]?'none':'circle',
+            },
+            {
+                type:'line',
+                lineStyle:{
+                    type:'dotted'
+                },
+                seriesLayoutBy:'row',
+                encode:{
+                    x:5,
+                    y:2
+                },
+                symbolSize:10,
+                symbol:d=>d[4]?'none':'circle',
+            },
+            {
+                type:'line',
+                lineStyle:{
+                    type:'dotted'
+                },
+                seriesLayoutBy:'row',
+                encode:{
+                    x:5,
+                    y:3
+                },
+                symbolSize:10,
+                symbol:d=>d[4]?'none':'circle',
+            },
+        ]
+    };
+
+    myChart.setOption(option);
+
+    //时间转秒
+    function timeToSecond(time){
+        const [h,m,s]=time.split(':').map(d=>parseInt(d))
+        return h*60*60+m*60+s
+    }
+    //秒转时间
+    function secondToTime(second){
+        const h=Math.floor(second/3600)
+        const num=second-h*3600
+        const m=Math.floor(num/60)
+        const s=num-m*60
+        return h+':'+m+':'+s
+    }
+</script>
+</body>
+</html>

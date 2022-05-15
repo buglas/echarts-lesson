@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+
+    //数据源
+    const source=[
+        ['大前端','学习人数','就业人数'],
+        ['html',  30,       50],
+        ['css',   20,       40],
+        ['js',    40,       80],
+    ];
+    // 指定图表的配置项和数据
+    const option={
+        tooltip:{},
+        legend:{},
+        dataset:{source},
+        xAxis:{
+            data:['html','css','js']
+        },
+        yAxis:{},
+        series:[
+            {type:'bar'},
+            {type:'bar'},
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+
+    /*
+    * 使用on 方法绑定legendselectchanged 图例开关点击事件
+    * */
+    myChart.on('legendselectchanged',(param)=>{
+        console.log(param);
+    })
+
+</script>
+</body>
+</html>

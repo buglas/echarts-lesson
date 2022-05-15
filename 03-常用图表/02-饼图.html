@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>饼图</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    // 指定图表的配置项和数据
+    const option = {
+        /*视觉映射 visualMap
+        *   min 最小值
+        *   max 最大值
+        *   inRange 定义 在选中范围中 的视觉元素
+        *       colorLightness[0, 1] 亮度
+        * */
+        visualMap:{
+            min:0,
+            max:100,
+            inRange:{
+                colorLightness:[0,1]
+            }
+        },
+
+        /*饼图 pie
+        *   type 图表类型
+        *   data 数据 [{name,value},...]
+        *   roseType 玫瑰图类型
+        *       radius 半径
+        *       area 面积
+        *   radius 半径，[起始半径，结束半径]可生成环形
+        *   itemStyle 项目样式
+        *       color 颜色
+        * */
+        series:{
+            type:'pie',
+            data:[
+                {name:'html',value:30},
+                {name:'css',value:20},
+                {name:'js',value:40},
+                {name:'webgl',value:50},
+            ],
+            roseType:'radius',
+            // roseType:'area',
+            // radius:100,
+            // radius:'70%',
+            radius:['40%','70%'],
+            itemStyle:{
+                color:'#00acec'
+            },
+            label:{
+                position:'inside',
+                // formatter:'{b}\n{d}%',
+                formatter:({name,percent})=>{
+                    return `${name}\n${Math.round(percent)}%`
+                },
+                lineHeight:22,
+                fontSize:14,
+                fontWeight:'bold'
+            },
+            center:['50%','60%']
+        }
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

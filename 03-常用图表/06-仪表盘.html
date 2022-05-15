@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仪表盘</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    // 指定图表的配置项和数据
+    const option = {
+        /*
+        * 仪表盘 gauge
+        *   type 图表类型
+        *   detail 仪表盘详情{formatter:'{value}%'}
+        *   data 数据[{name,value},...]
+        * */
+        series:{
+            type:'gauge',
+            detail:{
+                formatter:'{value}%'
+            },
+            data:[
+                {name:'速度',value:80}
+            ],
+            startAngle:270-30,
+            endAngle:-60,
+            min:-200,
+            max:200
+        }
+
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    /*随机修改仪表数值，每隔一秒钟修改一次*/
+    setInterval(()=>{
+        option.series.data[0].value=Math.round(Math.random()*400)
+        myChart.setOption(option)
+    },1000)
+
+</script>
+</body>
+</html>

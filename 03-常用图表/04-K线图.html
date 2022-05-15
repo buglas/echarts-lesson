@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>K线图</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    // 指定图表的配置项和数据
+    const option = {
+        /*x 轴*/
+        xAxis:{
+            data:['周一','周二','周三','周四',]
+        },
+        /*y轴*/
+        yAxis:{},
+
+        /*k 线图 candlestick
+        * data [open, close, lowest, highest]-[开盘值, 收盘值, 最低值, 最高值]
+        * */
+        series:{
+            type:'candlestick',
+            data:[
+                [30,20,10,40],
+                [20,30,10,40],
+                [20,30,0,40],
+                [20,30,0,50],
+            ],
+            barWidth:'20%',
+            itemStyle:{
+                // color:'red',
+                /*color:(param)=>{
+                    return 'orange'o
+                },*/
+                // borderColor:'orange',
+                // color0:'#00acec',
+                // borderColor0:'#00acec'
+            }
+        }
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

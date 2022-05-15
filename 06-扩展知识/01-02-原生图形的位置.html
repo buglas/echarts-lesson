@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原生图形</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 700px;
+            background: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    /*实例化echarts*/
+    const chart = echarts.init(document.getElementById('main'));
+    /*配置项*/
+    let option={
+        /*x轴
+        *   min,max 刻度区间
+        *   type 坐标轴的类型
+        *       value 数值轴
+        * */
+        xAxis: {
+            min:0,
+            max:50
+        },
+        /*y 轴
+        *   属性同x
+        * */
+        yAxis: {
+            min:0,
+            max:50
+        },
+        /*散点*/
+        series:{
+            id:1,
+            type:'scatter',
+            data:[
+                [40,40]
+            ],
+            symbolSize:30
+        }
+    };
+
+    chart.setOption(option)
+
+
+    /*原生图形*/
+    //chart.convertToPixel('grid',[x,y]) 将某种位置转换为像素位。如直角坐标grid系转像素位，地理坐标系geo 转像素位
+    const circle={
+        id:1,
+        type:'circle',
+        shape:{
+            r:5
+        },
+        x:200,
+        y:200,
+    }
+    chart.setOption({
+        graphic:[circle]
+    })
+
+    //图表位转像素位
+    const [x,y]=chart.convertToPixel('grid',[20,20])
+    /*chart.setOption({
+        graphic:[
+            {
+                id:1,
+                x,y
+            }
+        ]
+    })*/
+
+    //像素位转图表位
+    const pos=chart.convertFromPixel('grid',[200,200])
+    console.log(pos);
+    chart.setOption({
+        series:[
+            {
+                id:1,
+                data:[pos]
+            }
+        ]
+    })
+
+</script>
+</body>
+</html>

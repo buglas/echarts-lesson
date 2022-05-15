@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>散点图</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div id="main"></div>
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    const myChart = echarts.init(document.getElementById('main'));
+    const data1=[
+        //x y  z
+        ['9:42:10', 10],
+        ['10:42:11',20],
+        ['11:42:12',30],
+        ['12:42:13',40],
+    ];
+    const data2=data1.map(([x,y])=>[timeToSecond(x),y,x])
+    //时间转秒
+    function timeToSecond(time){
+        const [h,m,s]=time.split(':').map(d=>parseInt(d))
+        return h*60*60+m*60+s
+    }
+    //秒转时间
+    function secondToTime(second){
+        const h=Math.floor(second/3600)
+        const num=second-h*3600
+        const m=Math.floor(num/60)
+        const s=num-m*60
+        return h+':'+m+':'+s
+    }
+
+    const option = {
+        /*x 轴*/
+        xAxis:{
+            min:'dataMin',
+            show:true,
+            axisTick:{
+                show:true,
+            },
+            axisLabel:{
+                show:true,
+                formatter: d=>secondToTime(d)
+            }
+        },
+        yAxis:{
+            min:'dataMin',
+        },
+        series:{
+            type:'scatter',
+            data:data2,
+            symbolSize:30,
+        }
+    };
+
+    myChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原生图形</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 800px;
+            height: 700px;
+            background: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    /*实例化echarts*/
+    const myChart = echarts.init(document.getElementById('main'));
+    //圆
+    const circle={
+        id:1,
+        type:'circle',
+        // position:[300,300],
+        x:300,
+        y:300,
+        shape:{
+            r:200
+        },
+        scaleX:0.5,
+        scaleY:0.5,
+        style:{
+            fill:'#00acec',
+            stroke:'#000',
+            lineWidth:10
+        },
+        draggable:true,
+        onmouseover:()=>{
+            myChart.setOption({
+                graphic: [
+                    {
+                        id:1,
+                        style: {
+                            fill:'green'
+                        }
+                    }
+                ]
+            })
+        },
+        onmouseout:()=>{
+            myChart.setOption({
+                graphic: [
+                    {
+                        id:1,
+                        style: {
+                            fill:'#00acec'
+                        }
+                    }
+                ]
+            })
+        },
+    }
+
+    //原生图片
+    const image={
+        type:'image',
+        x:100,
+        y:100,
+        // z:-1,
+        rotation:0.5,
+        style:{
+            image:'./images/dog.jpg'
+        }
+    }
+
+    //文本
+    const text={
+        type:'text',
+        x:200,
+        y:50,
+        style:{
+            text:'好好学习，天天上上！\n好好学习，天天上上！',
+            font: 'italic bolder 32px cursive',
+            textAlign:'center',
+            textVerticalAlign:'middle',
+            fill:'rgba(0,0,0,0)',
+            stroke:'#000',
+            lineWidth: 1,
+        }
+    }
+
+    //矩形
+    const rect={
+        type:'rect',
+        x:100,
+        y:100,
+        shape:{
+            width:200,
+            height:150,
+        },
+        style:{
+            fill:'#00acec',
+            stroke:'#000',
+            lineWidth:10
+        }
+    }
+
+    //圆环
+    const ring={
+        type:'ring',
+        x:300,
+        y:300,
+        shape:{
+            r0:100,
+            r:200
+        }
+    }
+
+    //扇形
+    const sector={
+        type:'sector',
+        x:300,
+        y:300,
+        shape:{
+            r0:50,
+            r:200,
+            startAngle: -Math.PI/6,
+            endAngle: -Math.PI*5/6,
+            clockwise:false,
+        }
+    }
+
+    //圆弧
+    const arc={
+        type:'arc',
+        x:300,
+        y:300,
+        shape:{
+            r:200,
+            startAngle: -Math.PI/6,
+            endAngle: -Math.PI*5/6,
+            // clockwise:false,
+        }
+    }
+
+    //多边形
+    const polygon={
+        type:'polygon',
+        x:300,
+        y:300,
+        shape:{
+            points:[
+                [0,0],
+                [-100,100],
+                [100,100],
+            ]
+        }
+    }
+
+    //多边形线
+    const polyline={
+        type:'polyline',
+        x:300,
+        y:300,
+        shape:{
+            points:[
+                [0,0],
+                [-100,100],
+                [100,100],
+                [100,-100],
+            ],
+            smooth:0.5
+        }
+    }
+
+    //线
+    const line={
+        type:'line',
+        x:300,
+        y:300,
+        shape:{
+            x0:0,
+            y0:0,
+            x1:300,
+            y1:0
+        }
+    }
+
+    //贝塞尔
+    const bezierCurve={
+        type:'bezierCurve',
+        x:300,
+        y:300,
+        shape:{
+            x1:0,
+            y1:0,
+            cpx1:100,
+            cpy1:-100,
+            cpx2:200,
+            cpy2:200,
+            x2:300,
+            y2:100
+        }
+    }
+
+
+    /*配置项*/
+    let option={
+        /*graphic 原生图形组件
+        *   type 图形类型，image, text, circle, sector, ring...
+        *   position 位置
+        *   shape 相关于图形的属性
+        *   style 图形样式
+        *   draggable 可否拖拽
+        *   onmouseover 鼠标划上
+        *   onmouseup 鼠标抬起
+        *   onmouseout 鼠标划出
+        * */
+        graphic:[
+            // circle,
+            // image,
+            // text,
+            // rect,
+            // ring,
+            // sector
+            // arc,
+            // polygon,
+            // polyline,
+            // line,
+            bezierCurve
+        ]
+
+    };
+    /*绘图*/
+    myChart.setOption(option);
+
+</script>
+</body>
+</html>

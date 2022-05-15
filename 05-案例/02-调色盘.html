@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>调色盘</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script src="./js/vintage.js"></script>
+<script>
+    const dom= document.getElementById('main');
+    const myChart = echarts.init(dom);
+    /*color 可以设置色盘*/
+    const option = {
+        color: ['#00acec','#2f4554', '#61a0a8'],
+        series:{
+            type:'pie',
+            data:[
+                {name:'css',value:25},
+                {name:'html',value:30},
+                {name:'js',value:35},
+                {name:'canvas',value:15},
+                {name:'echarts',value:20},
+            ],
+            roseType:'radius',
+        }
+    };
+
+    myChart.setOption(option);
+
+
+</script>
+</body>
+</html>

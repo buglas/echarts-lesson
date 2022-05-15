@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>折线</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    const myChart = echarts.init(document.getElementById('main'));
+
+    const option = {
+        xAxis:{
+            data:['html','css','js'],
+            boundaryGap:0,
+            axisLabel:{
+                rotate:60,
+                margin: 20
+            }
+        },
+        yAxis:{
+            axisLabel:{
+                margin:20
+            }
+        },
+        series:[
+            {
+                id:1,
+                name:'学习人数',
+                type:'line',
+                data:[30,20,40],
+                smooth:true,
+            },
+        ]
+    };
+
+    setTimeout(()=>{
+        myChart.setOption({
+            series: [
+                {
+                    id:1,
+                    data:[30,20,0],
+                }
+            ]
+        })
+    },1000)
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>响应式布局</title>
+    <style>
+        html,body{margin: 0;height: 100%}
+        #main{
+            height: 100%;
+            background: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    /*实例化echarts*/
+    const chart = echarts.init(document.getElementById('main'));
+    /*基础配置项*/
+    const  baseOption={
+        xAxis:[
+            {
+                gridIndex:0,
+                min:0,
+                max:50
+            },
+            {
+                gridIndex:1,
+                min:0,
+                max:50
+            },
+        ],
+        yAxis:[
+            {
+                gridIndex:0,
+                min:0,
+                max:50
+            },
+            {
+                gridIndex:1,
+                min:0,
+                max:50
+            },
+        ],
+    }
+
+    /*media 规则配置列表
+    *   query 规则，如maxWidth: 768
+    *   option 配置项
+    * */
+    const media=[
+        {
+            option:{
+                grid:[
+                    {left:'10%',right:'55%',top:'10%',bottom:'10%'},
+                    {left:'55%',right:'10%',top:'10%',bottom:'10%'},
+                ]
+            }
+        },
+        {
+            query:{
+                maxWidth:768,
+            },
+            option:{
+                grid:[
+                    {left:'10%',right:'10%',top:'10%',bottom:'55%'},
+                    {left:'10%',right:'10%',top:'55%',bottom:'10%'},
+                ]
+            }
+        }
+    ]
+
+    chart.setOption({
+        baseOption,
+        media
+    })
+
+    /*窗口尺寸发生变化时，echarts 实例重置尺寸*/
+    window.addEventListener('resize',()=>{
+        chart.resize()
+    })
+
+</script>
+</body>
+</html>

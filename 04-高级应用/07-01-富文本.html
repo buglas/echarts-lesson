@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>富文本</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+
+    // 数据
+    const data=[
+        {name:'杨戬',value:80,img:'./images/yj.jpg'},
+        {name:'鲁班',value:60,img:'./images/lb.jpg'},
+        {name:'沈梦溪',value:40,img:'./images/smx.jpg'},
+        {name:'诸葛亮',value:30,img:'./images/zgl.jpg'}
+    ];
+
+    //获取hero的数据
+    // const item=data[0]
+
+    /*自定义标签 label
+    *   formatter 文本片段
+    *       '{样式名|文字内容}\n 换行'
+    *   文本块的样式
+    *       textBorderColor 文本描边颜色
+    *       textBorderWidth 文本描边宽度
+    *       ...
+    *   rich 富文本，在其中写入样式
+    *       width 宽
+    *       height 高
+    *       backgroundColor 背景色
+    *           image 背景图
+    *       fontSize 文字大小
+    *       lineHeight 行高
+    *       fontWeight 文本加粗
+    *       ...
+    * */
+    data.forEach(item=>{
+        item.label={
+            formatter:'{img|}\n{name|'+item.name+'}\n{val|战力:'+item.value+'}',
+            textBorderColor:'#fff',
+            textBorderWidth:5,
+            rich:{
+                img:{
+                    width:60,
+                    height:60,
+                    backgroundColor:{
+                        image:item.img
+                    },
+                    borderColor:'#fff',
+                    borderWidth:5
+                },
+                name:{
+                    fontSize:20,
+                    lineHeight:32,
+                    fontWeight:'bold'
+                }
+            }
+        }
+    })
+
+    /*配置项*/
+    const option = {
+        title:{text:'英雄战力'},
+        series: {
+            type: 'pie',
+            data,
+            radius:'70%',
+        }
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

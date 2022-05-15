@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主题样式</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script src="./js/vintage.js"></script>
+<script>
+    const dom= document.getElementById('main');
+    // const myChart = echarts.init(dom,'light');
+    // const myChart = echarts.init(dom,'dark');
+    const myChart = echarts.init(dom,'vintage');
+    // const myChart = echarts.init(dom,null);
+
+    const option = {
+        series: [
+            {
+                type:'pie',
+                data:[
+                    {value:20,name:'html'},
+                    {value:10,name:'css'},
+                    {value:30,name:'js'},
+                    {value:40,name:'vue'},
+                ],
+            }
+        ]
+    };
+
+    myChart.setOption(option);
+
+
+</script>
+</body>
+</html>

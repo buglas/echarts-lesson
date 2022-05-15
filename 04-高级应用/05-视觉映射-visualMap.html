@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>视觉映射</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 800px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+
+    //数据源
+    const source = [
+       //x   y   z
+        [2,  1, 10],
+        [4,  2, 20],
+        [6,  3, 30],
+        [8,  4, 50],
+        [10, 5, 50],
+        [12, 6, 60],
+        [14, 7, 70],
+        [16, 8, 80],
+        [18, 9, 90],
+    ];
+
+    // 指定图表的配置项和数据
+    const option = {
+        tooltip: {},
+        /*绘图区*/
+        grid:{
+            left:120
+        },
+        /*x 轴*/
+        xAxis: {},
+        /*y 轴*/
+        yAxis: {},
+        /*数据集*/
+        dataset:{source},
+        /*
+        * visualMap 视觉映射 {}
+        *   type 映射方式
+        *       continuous 连续型
+        *       piecewise 分段型
+        *   min 映射区间的起始位置，如0
+        *   max 映射区间的接收位置，如90
+        *   calculable 是否显示拖拽用的手柄，只适用于连续型
+        *   range [] 显示此范围内的项目，百分比类型，只适用于连续型,如[0,100]
+        *   dimension 基于哪个维度的数据进行视觉映射
+        *   inRange 自定义取色范围
+        *       color[] 颜色映射
+        *       symbolSize[] 大小映射
+        *
+        * */
+        /*visualMap:{
+            type:'continuous',
+            dimension:2,
+            min:0,
+            max:100,
+            calculable:true,
+            // range:[50,100],
+            inRange: {
+                symbolSize:[3,80],
+                color:['#00acec','yellow','orange']
+            }
+        },*/
+        visualMap:{
+            type:'piecewise',
+            dimension:2,
+            min:0,
+            max:100,
+            bottom:40,
+            inRange: {
+                symbolSize:[3,80],
+                // color:['#00acec','yellow','orange'],
+                colorSaturation:[0,1],
+                colorHue:[0,360]
+            }
+        },
+
+        /*系列列表*/
+        series: [
+            {
+                name: '视觉映射',
+                type: 'scatter',
+                encode:{
+                    tooltip:[0,1,2]
+                }
+            },
+        ]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>附加设置</title>
+    <style>
+        #main{
+            width: 600px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    const dom= document.getElementById('main');
+    const myChart = echarts.init(dom,null,{
+        // renderer:'svg',
+        locale:'ZH'
+    });
+
+    const option = {
+        title: {
+            text: 'ECharts 快速上手',
+            left:'center'
+        },
+        toolbox:{
+            right:30,
+            feature:{
+                saveAsImage:{}
+            }
+        },
+        xAxis: {
+            data: ["html","css","js"]
+        },
+        yAxis: {},
+        series: [{
+            type: 'bar',
+            data: [1, 2, 10]
+        }]
+    };
+
+    myChart.setOption(option);
+</script>
+</body>
+</html>

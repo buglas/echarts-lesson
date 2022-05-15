@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速上手</title>
+    <style>
+        #main{
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    /*基于准备好的dom，初始化echarts实例
+    *   echarts.init(dom)
+    * */
+    const main=document.querySelector('#main')
+    const chart=echarts.init(main)
+
+    /*指定图表的option 配置项和数据
+    *   xAxis x轴 {}
+    *       data 类目数据
+    *   yAxis y轴 {}
+    *   series 系列列表
+    *       type 图表类型
+    *       data 数据，与xAxis.data 相对应
+    * */
+    const option={
+        xAxis:{
+            data:['html','css','js']
+        },
+        yAxis:{},
+        series:{
+            type:'bar',
+            data:[30,20,40],
+            barCategoryGap :'50%'
+        }
+    }
+
+    /*使用刚指定的配置项和数据显示图表
+    *   setOption(option)
+    * */
+    chart.setOption(option)
+
+</script>
+</body>
+</html>

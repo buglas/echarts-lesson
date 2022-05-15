@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编码映射</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 100%;
+            height: 820px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    //配置项
+    let option=null;
+    //异步请求数据
+    fetch('./lib/table.json')
+        .then((res) => res.json())
+        .then(data => {
+            //显示数据
+            show(data);
+        });
+
+    function show(data){
+        let sizeValue = '57%';
+        let symbolSize = 5;
+        option = {
+            //提示
+            tooltip:{},
+            /*建立四个绘图区*/
+            grid: [
+                {right: sizeValue, bottom: sizeValue},
+                {left: sizeValue, bottom: sizeValue},
+                {right: sizeValue, top: sizeValue,bottom:'10%'},
+                {left: sizeValue, top: sizeValue,bottom:'10%'}
+            ],
+            /*x 轴*/
+            xAxis: [
+                /*
+                * type 坐标轴类型
+                *   value  数值轴，适用于连续数据
+                *   category 类目轴，适用于离散的类目数据
+                *   time 时间轴
+                *   log 对数轴
+                * gridIndex  x 轴所在的 grid 的索引，默认位于第一个 grid
+                * name 坐标轴名称
+                * axisLabel 坐标轴刻度标签的相关设置
+                *   rotate 刻度标签旋转的角度
+                *   interval 坐标轴刻度标签的显示间隔。
+                *       0 强制显示所有标签
+                *       1 隔一个标签显示一个标签
+                * boundaryGap 边界间隙
+                *   false 无间隙
+                *   true 有间隙
+                * */
+                {type: 'value', gridIndex: 0, name: '收入', axisLabel: {rotate: 50}},
+                {type: 'category', gridIndex: 1, name: '国家',  axisLabel: {rotate: 50,}},
+                {type: 'category', gridIndex: 2, name: '国家', axisLabel: {rotate: 50}},
+                {type: 'value', gridIndex: 3, name: '寿命', axisLabel: {rotate: 50}}
+            ],
+            yAxis: [
+                {type: 'value', gridIndex: 0, name: '寿命'},
+                {type: 'value', gridIndex: 1, name: '收入'},
+                {type: 'value', gridIndex: 2, name: '人口'},
+                {type: 'value', gridIndex: 3, name: '人口'}
+            ],
+            dataset: {
+                /*
+                * dimensions 维度映射 []
+                *   string，如 'someName'，等同于 {name: 'someName'}
+                *   Object
+                *       name  string
+                *       type 类型
+                *           number，默认，表示普通数据。
+                *           ordinal，对于类目、文本这些 string 类型的数据，如果需要能在数轴上使用，须是 'ordinal' 类型
+                *           ...
+                * */
+                dimensions: ['收入','寿命','人口','国家','年'],
+                /*数据源*/
+                source: data
+            },
+            series: [
+                /*
+                * type 图表类型
+                *   scatter 散点图
+                *   symbolSize 散点大小
+                *   xAxisIndex  x 轴索引位
+                *   yAxisIndex  y 轴索引位
+                *   encode 编码映射
+                *       x  x坐标系的维度映射
+                *       y  y坐标系的维度映射
+                *       tooltip 提示映射
+                *   itemStyle 项目样式
+                *       opacity 项目透明度
+                *
+                * */
+                {
+                    type: 'scatter',
+                    symbolSize: symbolSize,
+                    xAxisIndex: 0,
+                    yAxisIndex: 0,
+                    encode: {
+                        x: '收入',
+                        y: '寿命',
+                        tooltip: [0, 1, 2, 3, 4]
+                    },
+                    itemStyle:{
+                        opacity:0.3
+                    }
+                },
+                {
+                    type: 'scatter',
+                    symbolSize: symbolSize,
+                    xAxisIndex: 1,
+                    yAxisIndex: 1,
+                    encode: {
+                        x: '国家',
+                        y: '收入',
+                        tooltip: [0, 1, 2, 3, 4]
+                    },
+                    itemStyle:{
+                        opacity:0.3
+                    }
+                },
+                {
+                    type: 'scatter',
+                    symbolSize: symbolSize,
+                    xAxisIndex: 2,
+                    yAxisIndex: 2,
+                    encode: {
+                        // x: '收入',
+                        x: '国家',
+                        y: '人口',
+                        tooltip: [0, 1, 2, 3, 4]
+                    },
+                    itemStyle:{
+                        opacity:0.3
+                    }
+                },
+                {
+                    type: 'scatter',
+                    symbolSize: symbolSize,
+                    xAxisIndex: 3,
+                    yAxisIndex: 3,
+                    encode: {
+                        x: '寿命',
+                        y: '人口',
+                        tooltip: [0, 1, 2, 3, 4]
+                    },
+                    itemStyle:{
+                        opacity:0.3
+                    }
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+
+
+    }
+</script>
+</body>
+</html>

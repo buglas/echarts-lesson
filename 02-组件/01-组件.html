@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/5.1.2/echarts.min.js"></script>
+<script>
+    /*基于准备好的dom，初始化echarts实例*/
+    const myChart = echarts.init(document.getElementById('main'));
+
+    /*指定图表的配置项和数据*/
+    const option = {
+        /*标题 title {}
+        *   主标题 text
+        *   副标题 subtext
+        *   位置 left
+        *       left 左对齐
+        *       right 右对齐
+        *       center 居中
+        *   主标题样式 textStyle
+        *       color
+        *       fontSize
+        *   副标题样式 subtextStyle
+        *       color
+        *       fontSize
+        *   show 可见性
+        *       true 可见，默认
+        *       false 不可见
+        * */
+        title:{
+            text:'大前端',
+            left:'center',
+            subtext:'web前端高级',
+            textStyle:{
+                color:'maroon',
+                fontSize:32,
+            },
+            subtextStyle:{
+                color:'#333',
+                fontSize:18,
+            },
+            show:true,
+            // show:false
+        },
+
+        /*提示框 tooltip
+        *   trigger 提示框触发方式
+        *       item 图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+        *       axis 坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表
+        *       none 什么都不触发
+        * */
+        tooltip:{
+            // trigger:'item',
+            // trigger:'axis',
+            // trigger:'none'
+        },
+
+
+        /*绘图区 grid
+        *   left right bottom right 绘图区在容器内的边距
+        * */
+        grid:{
+            top:80
+        },
+
+
+        /*图例 legend
+        *   data[] 图例的数据,每一项代表一个系列的 name
+        * */
+        legend:{
+            left:'left',
+            // left:'50%',
+        },
+
+
+        /*工具栏 toolbox
+        *   feature{} 工具配置项
+        *     saveAsImage{} 保存为图片
+        *     dataView{} 数据视图工具
+        *     restore{} 配置项还原
+        *     dataZoom{} 数据区域缩放
+        *     magicType{} 动态类型切换
+        *       type[] 动态类型
+        *           line 折线图
+        *           bar 柱状图
+        *           stack 堆叠
+        * */
+        toolbox:{
+            feature:{
+                saveAsImage:{type:'jpg'},
+                dataView:{},
+                restore:{},
+                dataZoom:{},
+                magicType:{
+                    type:['line','bar','stack']
+                }
+            },
+        },
+
+
+        /*x 轴
+        *   name 坐标轴名称
+        *   data 类目数据 []
+        * */
+        xAxis:{
+            name:'前端语言',
+            data:['html','css','js']
+        },
+
+        /*y 轴
+        *   name 坐标轴名称
+        *   splitNumber 分割段数
+        *   interval 强制设置坐标轴分割间隔
+        *   minInterval 坐标轴最小间隔
+        *   maxInterval 坐标轴最大间隔
+        * */
+        yAxis:{
+            name:'人数',
+            // splitNumber:20
+            // interval:5
+            // minInterval:20,
+            // maxInterval:5
+        },
+
+        /*系列列表 series
+        *   列表类型 type
+        *   系列名 name ：用于提示tooltip，图例legend 筛选，数据更新
+        *   数据 data []
+        *   标记点 markPoint {}
+        *       data [] 标记的数据数组
+        *           {type:'max'} 最大值
+        *           {type:'min'} 最小值
+        *           {value:'值',coord:[x,y]} 坐标位
+        *   标记线 markLine
+        *       data[] 标记数据
+        *           name 名称
+        *           type 类型 'average', 'min', 'max'
+        *           coord 点位
+        *           ...
+        * */
+        series:[
+            {
+                name:'学习人数',
+                type:'bar',
+                stack:'01',
+                data:[30,20,40],
+                markPoint:{
+                    data:[
+                        {type:'max'},
+                        {type:'min'},
+                        {type:'average'},
+                    ]
+                }
+            },
+            {
+                name:'上课人数',
+                type:'bar',
+                stack:'01',
+                data:[40,30,50],
+            },
+        ]
+
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

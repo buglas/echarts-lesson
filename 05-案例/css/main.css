@@ -1,0 +1,116 @@
+@font-face{font-family:electronicFont;src:url(../font/DS-DIGIT.TTF)}
+
+*{box-sizing: border-box}
+body{
+    width: 1920px;
+    height: 1080px;
+    margin: 0;
+    background: #000d4a;
+}
+#header{
+    height: 99px;
+    font-size: 42px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    padding-top: 12px;
+    background-image: url("../images/head_bg.png");
+}
+#cont{
+    height: 981px;
+    display: flex;
+}
+.cont-edge{
+    width: 576px;
+}
+.cont-edge:first-child{
+    padding-left: 14px;
+}
+.cont-edge:last-child{
+    padding-right: 14px;
+}
+.cont-center{
+    width: 768px;
+    padding: 0 14px;
+}
+.box{
+    height: 313px;
+    padding: 15px;
+    margin-bottom: 14px;
+    background-image: url("../images/box_bg.png");
+}
+#chartR3{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.center-tit{
+    height: 140px;
+    padding: 14px;
+    background: rgba(101,132,226,.1);
+    margin-bottom: 14px;
+}
+.center-cont{
+    position: relative;
+    height: 827px;
+    background-image: url("../images/center_cont_bg.jpg");
+    background-position: center;
+    overflow: hidden;
+}
+/*水平处置居中*/
+.centerImg{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%)
+}
+.img1{
+    animation:img1 20s linear infinite;
+}
+@keyframes img1{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+.img2{
+    animation:img2 5s linear infinite;
+    opacity: 0.5;
+}
+@keyframes img2{
+    0%{transform:rotate(360deg);}
+    100%{transform:rotate(0deg);}
+}
+#chartC{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*background-color: rgba(0,13,74,0.1);*/
+}
+.center-row{
+    display: flex;
+}
+.center-row > div{
+    flex: 1;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
+.center-row:first-child{
+    height: 75px;
+    background-image: url("../images/center_tit_bg.png");
+}
+.center-num{
+    line-height: 75px;
+    color: #ffeb7b;
+    font-size: 64px;
+    font-family: electronicFont;
+}
+.center-text{
+    font-size: 20px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 9px;
+}
+/*隐藏百度地图logo*/
+.anchorBL{
+    display:none;
+}

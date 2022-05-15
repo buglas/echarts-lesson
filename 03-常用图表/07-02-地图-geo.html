@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中国地图</title>
+    <style>
+        body{margin: 0}
+        #main{
+            width: 100%;
+            height: 600px;
+            background-color: #044161;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+
+<script>
+    const myChart = echarts.init(document.getElementById('main'));
+    /*获取接送文件*/
+    fetch('./data/China.json')
+        .then((res) => res.json())
+        .then(data => {
+            echarts.registerMap('china',data);
+            const option = {
+                title: {
+                    text: '中国地图',
+                    left:'center',
+                    textStyle:{
+                        color:'rgba(255,255,255,0.8)',
+                    },
+                    top:24
+                },
+                geo: {
+                    map: 'china',
+                    roam:true,
+                    zoom:1,
+                    itemStyle:{
+                        areaColor:'#004981',
+                        borderColor:'#029fd4'
+                    },
+                    emphasis:{
+                        itemStyle:{
+                            color:'#029fd4'
+                        },
+                        label:{
+                            color:'#fff'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'pm2.5',
+                    type: 'scatter',
+                    coordinateSystem:'geo',
+                    data: [
+                        {
+                            name:'海门',
+                            value:[121.15, 31.89, 9]
+                        },
+                        {
+                            name:'鄂尔多斯',
+                            value:[109.781327, 39.608266, 12]
+                        },
+                        {
+                            name:'招远',
+                            value:[120.38, 37.35, 18]
+                        },
+
+                    ],
+                    symbolSize: function (val) {
+                        return val[2];
+                    },
+                }]
+            };
+            myChart.setOption(option);
+        })
+
+</script>
+</body>
+</html>

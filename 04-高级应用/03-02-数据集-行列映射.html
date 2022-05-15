@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据集</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    //数据源
+    const source=[
+        ['大前端','学习人数', '就业人数'],
+        ['html',  20,   25],
+        ['css',   10,   15],
+        ['js',    30,   40]
+    ];
+
+    /* 矩阵的转置
+    [
+        ['大前端','html', 'css','js'],
+        ['学习人数',  20,   10,  25],
+        ['就业人数',   25,   15, 40],
+    ]
+    * */
+
+    // 指定图表的配置项和数据
+    const option = {
+        legend: {},
+        tooltip: {},
+
+        /*
+        * dataset数据集
+        *   source 数据源 []
+        *   seriesLayoutBy 行列映射
+        *       column 基于列映射
+        *       row 基于行映射
+        * */
+        dataset: {
+            source,
+        },
+
+        /*grid [{},{}] 在一个echarts 实例中建立多个grid，并设置其位置
+        *   bottom 下边距，如'55%'
+        *   top 上边距，如'55%'
+        * */
+        grid:[
+            {bottom:'55%'},
+            {top:'55%'}
+        ],
+
+
+        /*建立两个x 轴，分属两个网格
+        *   type 轴类型，如category
+        *   gridIndex 绘图区索引位置
+        * */
+        xAxis: [
+            {type: 'category',gridIndex:0},
+            {type: 'category',gridIndex:1},
+        ],
+        /*建立两个y 轴，分属两个网格*/
+        yAxis:[
+            {type:'value',gridIndex:0},
+            {type:'value',gridIndex:1},
+        ],
+        /*
+        * series系列
+        *   type 图表类型
+        *   seriesLayoutBy 行列映射
+        *       column 列映射，默认
+        *       row  行映射
+        *   xAxisIndex x轴索引
+        *   yAxisIndex y轴索引
+        * */
+        series: [
+            {type: 'bar',xAxisIndex:0,yAxisIndex:0,seriesLayoutBy:'column'},
+            {type: 'bar',xAxisIndex:0,yAxisIndex:0,seriesLayoutBy:'column'},
+            {
+                type:'bar',
+                xAxisIndex:1,
+                yAxisIndex:1,
+                seriesLayoutBy:'row'
+            },
+            {
+                type:'bar',
+                xAxisIndex:1,
+                yAxisIndex:1,
+                seriesLayoutBy:'row'
+            },
+            {
+                type:'bar',
+                xAxisIndex:1,
+                yAxisIndex:1,
+                seriesLayoutBy:'row'
+            },
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

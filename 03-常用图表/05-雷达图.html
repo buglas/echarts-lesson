@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>雷达</title>
+    <style>
+        #main{
+            margin: 20px;
+            width: 700px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<!--建立dom 容器-->
+<div id="main"></div>
+<!--引入echarts-->
+<script src="https://lib.baomitu.com/echarts/4.7.0/echarts.min.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    const myChart = echarts.init(document.getElementById('main'));
+    /*英雄数据
+    *   value [生命，攻击，暴击，防御，速度]
+    * */
+    const data=[
+        {
+            name:'关羽',
+            value:[80,98,80,70,70]
+        },
+        {
+            name:'鲁班',
+            value:[85,70,75,95,80]
+        },
+    ];
+
+    // 指定图表的配置项和数据
+    const option = {
+        /*标题 title*/
+        title:{
+            text:'英雄实力对比'
+        },
+
+        /*图例 legend
+        *   data 数据
+        *   orient 排列方式
+        *       horizontal 水平，默认
+        *       vertical 垂直
+        * */
+        legend:{},
+
+        //提示
+        tooltip:{},
+
+        /*
+        * 雷达坐标系组件 radar
+        *   indicator 雷达图的指示器集合 []
+        *       name 指示器名称
+        *       min、max 数据区间，实际数据会在此区间内计算比值
+        *       color 标签颜色
+        *   shape 雷达形状
+        *       polygon 多边形，默认
+        *       circle 圆形
+        *
+        * */
+        radar:{
+            indicator:[
+                {name:'生命',min:0,max:100,color:'green'},
+                {name:'攻击',min:0,max:100,color:'red'},
+                {name:'暴击',min:0,max:100,color:'orange'},
+                {name:'防御',min:0,max:100,color:'#333'},
+                {name:'速度',min:0,max:100,color:'blue'},
+            ],
+            shape:'polygon',
+            // shape:'circle',
+            splitArea:{
+                areaStyle:{
+                    color:[
+                        'rgba(0,163,236,0)',
+                        'rgba(0,163,236,0.1)',
+                        'rgba(0,163,236,0.2)',
+                        'rgba(0,163,236,0.3)',
+                        'rgba(0,163,236,0.4)',
+                    ]
+                }
+            },
+            axisLine:{
+                lineStyle:{
+                    color:'#fff'
+                }
+            },
+            splitLine:{
+                lineStyle:{
+                    color:'#fff'
+                }
+            }
+        },
+
+        /*
+        * 雷达 radar
+        *   type 图表类型
+        *   data 数据 [{name,value[]},...]
+        * */
+        series:{
+            type:'radar',
+            data
+        }
+
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+
+
+</script>
+</body>
+</html>
