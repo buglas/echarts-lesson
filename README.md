@@ -1,6 +1,6 @@
 # Echart从入门到实战
 
-我的博客：http://yxyy.name/blog/
+我的博客：http://www.yxyy.name/blog/
 
 掘金：https://juejin.cn/column/7077005111989387271
 
